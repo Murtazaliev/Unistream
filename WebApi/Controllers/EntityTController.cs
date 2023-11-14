@@ -26,26 +26,17 @@ namespace WebApi.Controllers
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         public async Task<ActionResult<EntityDTO>> GetById([Required] Guid id)
         {
-
                 var query = new GetByIdQuery(id);
                 var queryResult = (await _mediator.Send(query)).Adapt<EntityDTO>();
                 return queryResult;
-
         }
         [HttpPost("insert")]
         [ProducesResponseType(typeof(EntityDTO), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<EntityDTO>> Insert([Required] string insert)
         {
-            try
-            {
                 var query = new InsertQuery(insert);
                 var result = (await _mediator.Send(query)).Adapt<EntityDTO>();
                 return result;
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
         }
     }
 }
